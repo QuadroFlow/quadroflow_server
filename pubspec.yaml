@@ -1,0 +1,18 @@
+name: quadroflow_server
+description: A visual organization application that combines the simplicity of the Kanban board with the fluidity of an agile workflow.
+
+publish_to: "none"
+homepage: https://softyes.com.br
+repository: https://github.com/QuadroFlow/quadroflow_server
+
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  vaden: ^0.1.1
+
+dev_dependencies:
+  build_runner: ^2.4.14
+  vaden_class_scanner: ^0.1.2
