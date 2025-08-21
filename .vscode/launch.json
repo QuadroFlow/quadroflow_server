@@ -7,7 +7,7 @@
     {
       "type": "dart",
       "request": "launch",
-      "name": "quadroflow_server",
+      "name": "quadroflow",
       "program": "bin/server.dart",
     }
   ]

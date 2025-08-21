@@ -1,4 +1,4 @@
-import 'package:quadroflow_server/vaden_application.dart';
+import 'package:quadroflow/vaden_application.dart';
 
 Future<void> main(List<String> args) async {
   final vaden = VadenApp();
