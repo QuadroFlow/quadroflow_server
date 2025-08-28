@@ -1,0 +1,19 @@
+name: quadroflow
+
+services:
+  database:
+    restart: always
+    image: postgres:latest
+    container_name: quadroflow_db
+    ports:
+      - ${DB_PORT}:5432
+    networks:
+      - quadroflow_network
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+networks:
+  quadroflow_network:
+    driver: bridge

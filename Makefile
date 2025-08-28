@@ -3,7 +3,7 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
-.PHONY: run runner runner_watch upgrade
+.PHONY: run runner runner_watch docker_compose upgrade
 
 default: run
 
@@ -18,6 +18,11 @@ runner:
 runner_watch:
 	@echo "Running the build_runner in watch mode..."
 	@fvm dart run build_runner watch -d
+
+docker_compose:
+	@echo "Running the docker-compose file..."
+	@docker compose down
+	@docker compose up -d
 
 upgrade:
 	@echo "Upgrading project dependencies..."
