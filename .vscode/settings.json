@@ -1,15 +1,19 @@
 {
+  "makefile.configureOnOpen": false,
+  "dart.flutterSdkPath": ".fvm/versions/3.35.2",
   "cSpell.words": [
     "debian",
+    "dotenv",
     "dson",
     "DSON",
+    "nullable",
     "openapi",
     "pubspec",
     "quadroflow",
     "softyes",
+    "uuid",
+    "Uuid",
     "vaden",
     "Vaden"
-  ],
-  "dart.flutterSdkPath": ".fvm/versions/3.35.1",
-  "makefile.configureOnOpen": false
+  ]
 }
