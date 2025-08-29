@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:quadroflow/vaden_application.dart';
 
 Future<void> main(List<String> args) async {
@@ -6,6 +8,5 @@ Future<void> main(List<String> args) async {
   await vaden.setup();
   final server = await vaden.run(args);
 
-  // ignore: avoid_print
   print('Server listening on port ${server.port}');
 }

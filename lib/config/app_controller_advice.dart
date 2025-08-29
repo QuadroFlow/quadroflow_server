@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:vaden/vaden.dart';
 
 @ControllerAdvice()
-class AppControllerAdvice {
+final class AppControllerAdvice {
   const AppControllerAdvice(this._dson);
 
   final DSON _dson;
