@@ -8,7 +8,10 @@
       "type": "dart",
       "request": "launch",
       "name": "quadroflow",
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
       "program": "bin/server.dart",
+      "preLaunchTask": "dart: dart run build_runner build",
     }
   ]
 }
