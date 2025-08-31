@@ -41,17 +41,17 @@ final class AppSettingsConfig {
       throw StateError('OpenAPI description is not set or is not a string.');
     }
 
-    final passwordCost = settings['secret']['passwordCost'];
+    final passwordCost = settings['security']['passwordCost'];
     if (passwordCost == null || passwordCost is! int) {
       throw StateError('Password cost is not set or is not a int.');
     }
 
-    final tokenAccessValidity = settings['secret']['accessValidity'];
+    final tokenAccessValidity = settings['security']['accessValidity'];
     if (tokenAccessValidity == null || tokenAccessValidity is! int) {
       throw StateError('Access token validity is not set or is not a int.');
     }
 
-    final tokenRefreshValidity = settings['secret']['refreshValidity'];
+    final tokenRefreshValidity = settings['security']['refreshValidity'];
     if (tokenRefreshValidity == null || tokenRefreshValidity is! int) {
       throw StateError('Refresh token validity is not set or is not a int.');
     }
