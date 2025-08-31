@@ -1,18 +1,24 @@
 import 'package:dotenv/dotenv.dart';
-import 'package:quadroflow/src/domain/entities/app_env.dart';
+import 'package:quadroflow/src/domain/entities/app_env_entity.dart';
+import 'package:quadroflow/src/domain/enums/app_mode_enum.dart';
 import 'package:vaden/vaden.dart';
 
 @Configuration()
-final class AppConfiguration {
-  const AppConfiguration();
+final class AppEnvConfig {
+  const AppEnvConfig();
 
   @Bean()
-  AppEnvironment environment() {
+  AppEnvironmentEntity environment() {
     final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
+
+    final mode = env['MODE'];
+    if (mode == null || mode.isEmpty) {
+      throw StateError('App mode is not set or is empty.');
+    }
 
     final dbSSL = env['DB_SSL'];
     if (dbSSL == null || dbSSL.isEmpty) {
-      throw StateError('Database SSL is not set or is empty.');
+      throw StateError('Database ssl is not set or is empty.');
     }
 
     final dbHost = env['DB_HOST'];
@@ -45,11 +51,24 @@ final class AppConfiguration {
       throw StateError('Open API enabled is not set or is empty.');
     }
 
-    return AppEnvironment(
-      openApi: AppOpenApiEnv(
-        enabled: openApiEnabled == 'true',
-      ),
-      db: AppDbEnv(
+    final tokenIssuer = env['TOKEN_ISSUER'];
+    if (tokenIssuer == null || tokenIssuer.isEmpty) {
+      throw StateError('Token issuer is not set or is empty.');
+    }
+
+    final tokenSecret = env['TOKEN_SECRET'];
+    if (tokenSecret == null || tokenSecret.isEmpty) {
+      throw StateError('Token secret is not set or is empty.');
+    }
+
+    final tokenAudiences = env['TOKEN_AUDIENCES'];
+    if (tokenAudiences == null || tokenSecret.isEmpty) {
+      throw StateError('Token audiences is not set or is empty.');
+    }
+
+    return AppEnvironmentEntity(
+      mode: _modeAdapter(mode),
+      db: AppDbEnvEntity(
         ssl: dbSSL,
         host: dbHost,
         port: int.parse(dbPort),
@@ -57,6 +76,22 @@ final class AppConfiguration {
         username: dbUsername,
         password: dbPassword,
       ),
+      openApi: AppOpenApiEnvEntity(
+        enabled: openApiEnabled == 'true',
+      ),
+      security: AppSecurityEnvEntity(
+        tokenIssuer: tokenIssuer,
+        tokenSecret: tokenSecret,
+        tokenAudiences: tokenAudiences.split(',').map((a) => a.trim()).toList(),
+      ),
     );
+  }
+
+  AppModeEnumEntity _modeAdapter(String mode) {
+    return switch (mode) {
+      'debug' => AppModeEnumEntity.debug,
+      'release' => AppModeEnumEntity.release,
+      _ => AppModeEnumEntity.debug,
+    };
   }
 }
