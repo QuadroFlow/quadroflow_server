@@ -11,7 +11,7 @@
       "console": "debugConsole",
       "cwd": "${workspaceFolder}",
       "program": "bin/server.dart",
-      "preLaunchTask": "dart: dart run build_runner build",
+      // "preLaunchTask": "dart: dart run build_runner build",
     }
   ]
 }

@@ -12,8 +12,12 @@ environment:
 
 dependencies:
   vaden: ^0.1.1
+  dotenv: ^4.2.0
+  quadroflow_core:
+    path: ../../../Flutter/QuadroFlow/quadroflow_core
 
 dev_dependencies:
+  test: ^1.26.3
   build_runner: ^2.4.14
   very_good_analysis: ^9.0.0
   vaden_class_scanner: ^0.1.2
