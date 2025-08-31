@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_dynamic_calls
 
-import 'package:quadroflow/src/domain/entities/app_settings.dart';
+import 'package:quadroflow/src/domain/entities/app_settings_entity.dart';
 import 'package:vaden/vaden.dart';
 
 @Configuration()
@@ -13,7 +13,7 @@ final class AppSettingsConfig {
   }
 
   @Bean()
-  AppSettings settings() {
+  AppSettingsEntity settings() {
     final settings = ApplicationSettings.load('application.yaml');
 
     final serverHost = settings['server']['host'];
@@ -41,15 +41,37 @@ final class AppSettingsConfig {
       throw StateError('OpenAPI description is not set or is not a string.');
     }
 
-    return AppSettings(
-      server: AppServerSettings(
+    final passwordCost = settings['secret']['passwordCost'];
+    if (passwordCost == null || passwordCost is! int) {
+      throw StateError('Password cost is not set or is not a int.');
+    }
+
+    final tokenAccessValidity = settings['secret']['accessValidity'];
+    if (tokenAccessValidity == null || tokenAccessValidity is! int) {
+      throw StateError('Access token validity is not set or is not a int.');
+    }
+
+    final tokenRefreshValidity = settings['secret']['refreshValidity'];
+    if (tokenRefreshValidity == null || tokenRefreshValidity is! int) {
+      throw StateError('Refresh token validity is not set or is not a int.');
+    }
+
+    return AppSettingsEntity(
+      server: AppServerSettingsEntity(
         host: serverHost,
         port: serverPort,
       ),
-      openApi: AppOpenAPISettings(
+      openApi: AppOpenAPISettingsEntity(
         version: openApiVersion,
         title: openApiTitle,
         description: openApiDescription,
+      ),
+      security: AppSecuritySettingsEntity(
+        passwordCost: passwordCost,
+        token: AppTokenSecuritySettingsEntity(
+          accessValidity: tokenAccessValidity,
+          refreshValidity: tokenRefreshValidity,
+        ),
       ),
     );
   }

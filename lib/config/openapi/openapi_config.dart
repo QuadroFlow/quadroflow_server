@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:quadroflow/src/domain/entities/app_settings.dart';
+import 'package:quadroflow/src/domain/entities/app_settings_entity.dart';
 import 'package:vaden/vaden.dart';
 import 'package:vaden/vaden_openapi.dart';
 
@@ -11,7 +11,7 @@ final class OpenAPIConfig {
   const OpenAPIConfig();
 
   @Bean()
-  OpenApi openApi(OpenApiConfig config, AppSettings settings) {
+  OpenApi openApi(OpenApiConfig config, AppSettingsEntity settings) {
     return OpenApi(
       version: '3.0.0',
       tags: config.tags,
@@ -27,7 +27,7 @@ final class OpenAPIConfig {
   }
 
   @Bean()
-  SwaggerUI swaggerUI(OpenApi openApi, AppSettings settings) {
+  SwaggerUI swaggerUI(OpenApi openApi, AppSettingsEntity settings) {
     return SwaggerUI(
       jsonEncode(openApi.toJson()),
       deepLink: true,
