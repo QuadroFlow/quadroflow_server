@@ -11,10 +11,9 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  path: ^1.9.1
   vaden: ^0.1.1
   dotenv: ^4.2.0
-  quadroflow_core:
-    path: ../../../Flutter/QuadroFlow/quadroflow_core
 
 dev_dependencies:
   test: ^1.26.3
