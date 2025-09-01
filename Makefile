@@ -24,6 +24,10 @@ docker_compose:
 	@docker compose down
 	@docker compose up -d
 
+migrations:
+	@echo "Creating db migrations..."
+	@fvm dart run drift_dev make-migrations
+
 upgrade:
 	@echo "Upgrading project dependencies..."
 	@fvm dart pub upgrade

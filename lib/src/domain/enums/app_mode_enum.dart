@@ -1,0 +1,1 @@
+enum AppModeEnumEntity { debug, release }
