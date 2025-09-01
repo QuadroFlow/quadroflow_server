@@ -4,6 +4,7 @@ import 'package:quadroflow/config/database/drift_database.steps.dart';
 import 'package:quadroflow/src/domain/models/_default_values.dart';
 import 'package:quadroflow/src/domain/models/_type_converters.dart';
 import 'package:quadroflow/src/domain/models/user_model.dart';
+import 'package:quadroflow/src/utils/file_util.dart';
 import 'package:quadroflow_core/quadroflow_core.dart';
 
 part 'drift_database.g.dart';
@@ -24,5 +25,13 @@ final class DriftAppDatabase extends _$DriftAppDatabase {
         },
       ),
     );
+  }
+
+  Future<void> populate() async {
+    final (_, truncates) = await FileUtil.readAsString('data/truncates.sql');
+    final (_, data) = await FileUtil.readAsString('data/data.sql');
+
+    await customStatement(truncates);
+    await customStatement(data);
   }
 }
