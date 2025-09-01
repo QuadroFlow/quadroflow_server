@@ -11,3 +11,7 @@ security:
   passwordCost: 12
   accessValidity: 900
   refreshValidity: 604800
+
+resource:
+  folder: public
+  defaultFile: favicon.ico
