@@ -3,4 +3,12 @@ targets:
     builders:
       vaden_class_scanner|aggregating_vaden_builder:
         enabled: true
-
+      drift_dev:
+        options:
+          schema_dir: data/
+          store_date_time_values_as_text: true
+          sql:
+            dialects:
+              - postgres
+          databases:
+            schemas: lib/config/database/drift_database.dart

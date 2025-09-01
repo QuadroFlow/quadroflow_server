@@ -16,7 +16,7 @@ final class AppControllerAdvice {
   @ExceptionHandler(Exception)
   Response handleException(Exception e) {
     return Response.internalServerError(
-      body: jsonEncode({'message': 'Internal server error'}),
+      body: jsonEncode({'message': e.toString()}),
     );
   }
 }
