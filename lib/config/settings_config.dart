@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_dynamic_calls
 
-import 'package:quadroflow/src/domain/entities/app_settings_entity.dart';
+import 'package:quadroflow/src/domain/entities/settings_entity.dart';
 import 'package:vaden/vaden.dart';
 
 @Configuration()
-final class AppSettingsConfig {
-  const AppSettingsConfig();
+final class SettingsConfig {
+  const SettingsConfig();
 
   @Bean()
   ApplicationSettings rawSettings() {
@@ -13,7 +13,7 @@ final class AppSettingsConfig {
   }
 
   @Bean()
-  AppSettingsEntity settings() {
+  SettingsEntity settings() {
     final settings = ApplicationSettings.load('application.yaml');
 
     final serverHost = settings['server']['host'];
@@ -56,22 +56,34 @@ final class AppSettingsConfig {
       throw StateError('Refresh token validity is not set or is not a int.');
     }
 
-    return AppSettingsEntity(
-      server: AppServerSettingsEntity(
+    final resourceFolder = settings['resource']['folder'];
+    if (resourceFolder == null || resourceFolder is! String) {
+      throw StateError('Resource folder is not set or is not a string.');
+    }
+
+    final resourceFile = settings['resource']['defaultFile'];
+    if (resourceFile == null || resourceFile is! String) {
+      throw StateError('Default resource file is not set or is not a string.');
+    }
+
+    return SettingsEntity(
+      server: ServerSettingsEntity(
         host: serverHost,
         port: serverPort,
       ),
-      openApi: AppOpenAPISettingsEntity(
+      openApi: OpenAPISettingsEntity(
         version: openApiVersion,
         title: openApiTitle,
         description: openApiDescription,
       ),
-      security: AppSecuritySettingsEntity(
+      security: SecuritySettingsEntity(
         passwordCost: passwordCost,
-        token: AppTokenSecuritySettingsEntity(
-          accessValidity: tokenAccessValidity,
-          refreshValidity: tokenRefreshValidity,
-        ),
+        accessValidity: tokenAccessValidity,
+        refreshValidity: tokenRefreshValidity,
+      ),
+      resource: ResourceSettingsEntity(
+        folder: Uri.parse(resourceFolder),
+        defaultFile: Uri.parse(resourceFile),
       ),
     );
   }

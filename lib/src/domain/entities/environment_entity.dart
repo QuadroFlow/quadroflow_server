@@ -1,21 +1,21 @@
-import 'package:quadroflow/src/domain/enums/app_mode_enum.dart';
+import 'package:quadroflow/src/domain/enums/mode_enum.dart';
 
-final class AppEnvironmentEntity {
-  const AppEnvironmentEntity({
+final class EnvironmentEntity {
+  const EnvironmentEntity({
     required this.db,
     required this.mode,
     required this.openApi,
     required this.security,
   });
 
-  final AppDbEnvEntity db;
-  final AppModeEnumEntity mode;
-  final AppOpenApiEnvEntity openApi;
-  final AppSecurityEnvEntity security;
+  final DbEnvEntity db;
+  final ModeEnumEntity mode;
+  final OpenApiEnvEntity openApi;
+  final SecurityEnvEntity security;
 }
 
-final class AppDbEnvEntity {
-  const AppDbEnvEntity({
+final class DbEnvEntity {
+  const DbEnvEntity({
     required this.ssl,
     required this.host,
     required this.port,
@@ -32,14 +32,14 @@ final class AppDbEnvEntity {
   final String password;
 }
 
-final class AppOpenApiEnvEntity {
-  const AppOpenApiEnvEntity({required this.enabled});
+final class OpenApiEnvEntity {
+  const OpenApiEnvEntity({required this.enabled});
 
   final bool enabled;
 }
 
-final class AppSecurityEnvEntity {
-  const AppSecurityEnvEntity({
+final class SecurityEnvEntity {
+  const SecurityEnvEntity({
     required this.tokenSecret,
     required this.tokenIssuer,
     required this.tokenAudiences,

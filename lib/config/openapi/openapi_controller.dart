@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:quadroflow/src/domain/entities/app_env_entity.dart';
+import 'package:quadroflow/src/domain/entities/environment_entity.dart';
 import 'package:vaden/vaden.dart';
 import 'package:vaden/vaden_openapi.dart' hide Response;
 
@@ -11,7 +11,7 @@ class OpenAPIController {
   const OpenAPIController(this._swaggerUI, this._environment);
 
   final SwaggerUI _swaggerUI;
-  final AppEnvironmentEntity _environment;
+  final EnvironmentEntity _environment;
 
   @Get('/')
   FutureOr<Response> getSwaggerUI(Request request) {

@@ -1,8 +1,8 @@
 import 'package:vaden/vaden.dart';
 
 @Configuration()
-final class AppMiddlewareConfiguration {
-  const AppMiddlewareConfiguration();
+final class MiddlewareConfig {
+  const MiddlewareConfig();
 
   @Bean()
   Pipeline middleware() {

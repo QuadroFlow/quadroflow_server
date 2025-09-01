@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:drift_postgres/drift_postgres.dart';
 import 'package:postgres/postgres.dart';
 import 'package:quadroflow/config/database/drift_database.dart';
-import 'package:quadroflow/src/domain/entities/app_env_entity.dart';
+import 'package:quadroflow/src/domain/entities/environment_entity.dart';
 import 'package:vaden/vaden.dart';
 
 @Configuration()
@@ -11,7 +11,7 @@ final class DriftConfig {
   const DriftConfig();
 
   @Bean()
-  DriftAppDatabase open(AppEnvironmentEntity env) {
+  DriftAppDatabase open(EnvironmentEntity env) {
     final settings = ConnectionSettings(
       encoding: utf8,
       timeZone: 'UTC',

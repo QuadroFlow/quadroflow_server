@@ -1,14 +1,14 @@
 import 'package:dotenv/dotenv.dart';
-import 'package:quadroflow/src/domain/entities/app_env_entity.dart';
-import 'package:quadroflow/src/domain/enums/app_mode_enum.dart';
+import 'package:quadroflow/src/domain/entities/environment_entity.dart';
+import 'package:quadroflow/src/domain/enums/mode_enum.dart';
 import 'package:vaden/vaden.dart';
 
 @Configuration()
-final class AppEnvConfig {
-  const AppEnvConfig();
+final class EnvironmentConfig {
+  const EnvironmentConfig();
 
   @Bean()
-  AppEnvironmentEntity environment() {
+  EnvironmentEntity environment() {
     final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
 
     final mode = env['MODE'];
@@ -66,9 +66,9 @@ final class AppEnvConfig {
       throw StateError('Token audiences is not set or is empty.');
     }
 
-    return AppEnvironmentEntity(
+    return EnvironmentEntity(
       mode: _modeAdapter(mode),
-      db: AppDbEnvEntity(
+      db: DbEnvEntity(
         ssl: dbSSL,
         host: dbHost,
         port: int.parse(dbPort),
@@ -76,10 +76,10 @@ final class AppEnvConfig {
         username: dbUsername,
         password: dbPassword,
       ),
-      openApi: AppOpenApiEnvEntity(
+      openApi: OpenApiEnvEntity(
         enabled: openApiEnabled == 'true',
       ),
-      security: AppSecurityEnvEntity(
+      security: SecurityEnvEntity(
         tokenIssuer: tokenIssuer,
         tokenSecret: tokenSecret,
         tokenAudiences: tokenAudiences.split(',').map((a) => a.trim()).toList(),
@@ -87,11 +87,11 @@ final class AppEnvConfig {
     );
   }
 
-  AppModeEnumEntity _modeAdapter(String mode) {
+  ModeEnumEntity _modeAdapter(String mode) {
     return switch (mode) {
-      'debug' => AppModeEnumEntity.debug,
-      'release' => AppModeEnumEntity.release,
-      _ => AppModeEnumEntity.debug,
+      'debug' => ModeEnumEntity.debug,
+      'release' => ModeEnumEntity.release,
+      _ => ModeEnumEntity.debug,
     };
   }
 }
